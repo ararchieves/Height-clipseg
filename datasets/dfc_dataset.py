@@ -8,7 +8,7 @@ from torchvision import transforms
 class DFCDataset(Dataset):
     def __init__(self, transform=None):
         super().__init__()
-        self.data_path = 'dfc-data/'
+        self.data_path = 'data/'
         self.image_ids = os.listdir(f'{self.data_path}/view1/')
 
         self.transform = transform
@@ -24,6 +24,9 @@ class DFCDataset(Dataset):
         if self.transform:
             view1 = self.transform(view1)
             mask = self.transform(mask)
+
+        view1 = transforms.ToTensor()(view1)
+        mask = transforms.ToTensor()(mask)
 
         return view1, mask
 
